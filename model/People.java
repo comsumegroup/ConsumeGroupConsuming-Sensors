@@ -83,7 +83,6 @@ public class People {
 		float x = MathUtils.randomFloat(-50, 50);
 		float y = MathUtils.randomFloat(0, 100);
 		peopleDef.position = new Vec2(x, y);
-
 		Body p = w.createBody(peopleDef);
 		CircleShape peopleShape = new CircleShape();
 		peopleShape.setRadius(People.PEOPLE_RADIUS);
@@ -154,4 +153,13 @@ public class People {
 			return x.mulLocal(attract_speed);
 		}
 	}
+	private float aDistanceOfAttract;
+	public float getaDistanceOfAttract() {
+		return aDistanceOfAttract;
+	}
+
+	public void setaDistanceOfAttract(float aDistanceOfAttract) {
+		this.aDistanceOfAttract = aDistanceOfAttract;
+	}
+
 }

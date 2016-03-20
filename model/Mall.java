@@ -26,7 +26,7 @@ public class Mall {
 	/**
 	 * 与shopList对应，当一个商店选为Aggregation，则对应位置置为true。
 	 */
-	public boolean[] isUsedAsAggregation;
+	public boolean[] UsedAsPromotion;
 	public boolean[] UsedAsAggregation;
 	public TestbedSettings settings;
 
@@ -55,14 +55,11 @@ public class Mall {
 		public Shop(int count, Vec2 v1, Vec2 v2, ShopType st) {
 			this.id = count;
 			BodyDef pillarDef = new BodyDef();
-			pillarDef.type = BodyType.STATIC;
 			pillarDef.position.set(new Vec2((v1.x + v2.x) / 2,
 					(v1.y + v2.y) / 2));
 			position = pillarDef.position.clone();
-
 			float hx = MathUtils.abs(v1.x - v2.x) / 2;
 			float hy = MathUtils.abs((v1.y - v2.y)) / 2;
-
 			List<Vec2> a = new ArrayList<Vec2>();
 			if (st == ShopType.DOWN) {
 				a.add(new Vec2(position.x - hx, position.y - hy));
@@ -124,7 +121,7 @@ public class Mall {
 			mall.shopList.add(mall.new Shop(count, new Vec2(-50, i * 30),
 					new Vec2(-40, 30 + i * 30), ShopType.RIGHT));
 		}
-		mall.isUsedAsAggregation = new boolean[mall.shopList.size()];
+		mall.UsedAsPromotion = new boolean[mall.shopList.size()];
 		mall.UsedAsAggregation = new boolean[mall.shopList.size()];
 		return mall;
 	}

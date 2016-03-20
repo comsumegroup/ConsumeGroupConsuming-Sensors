@@ -87,7 +87,6 @@ public class Aggregation {
 	 */
 	public Body createAggregationBody(World w) {
 		BodyDef bd = new BodyDef();
-		bd.type = BodyType.STATIC;
 		bd.position = center;
 		CircleShape cs = new CircleShape();
 		cs.setRadius(1);
@@ -132,7 +131,7 @@ public class Aggregation {
 			People p = (People) b.getUserData();
 			if (MathUtils.distance(center, b.getPosition()) < attract_in) {
 				p.pAtshop = id;
-				pg.PatShop = id;
+//				pg.PatShop = id;
 				p.visitShop.add(this);
 			}
 			for (int j = 0; j < pg.others.size(); j++) {
