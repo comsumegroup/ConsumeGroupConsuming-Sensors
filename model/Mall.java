@@ -153,7 +153,7 @@ public class Mall {
 			Body master = People.createPeopleBody(w, count);
 			master.isMaster = true;
 			count++;
-//			int rand = (int) (Math.random() * 8);
+//			int rand = (int) (Math.random() * 9);
 			int rand = 6;// 每个人群的人数
 			List<Body> others = new ArrayList<Body>();
 			for (int j = 0; j < rand; j++) {

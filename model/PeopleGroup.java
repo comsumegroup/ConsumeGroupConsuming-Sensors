@@ -14,7 +14,7 @@ public class PeopleGroup {
 	 * PeopleGroup以master为中心的半径。
 	 */
 	public static final float RADIUS = 5f;
-	public float attract = 0.7f;
+	public float attract = 0.49f;
 	public int id;
 	public int number = 0;// 每组人数
 	public Body master;

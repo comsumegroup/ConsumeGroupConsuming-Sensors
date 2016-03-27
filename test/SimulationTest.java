@@ -189,7 +189,7 @@ public class SimulationTest extends TestbedTest {
 		if (isBegin) {
 			if (ctimes <= Times && cstep == 0) {
 				ctimes++;
-				if (ctimes % 11 == 0 && ctimes != 0) {
+				if (ctimes % 2 == 0 && ctimes != 0) {
 //					if (Aggregation.attract_radius == 10
 //							|| Aggregation.attract_radius == 17) {
 //						Aggregation.attract_radius += 3;
@@ -268,145 +268,145 @@ public class SimulationTest extends TestbedTest {
 			}
 		}
 		// pg 是否被吸引及被吸引后的行为
-		for (int j = 0; j < aggre.size(); j++) {
-			for (int i = 0; i < pgList.size(); i++) {
-				PeopleGroup pg = pgList.get(i);
-				Body b = pg.master;// master是否被吸引
-				People masterData = (People) b.getUserData();
-				Body aggreBody = aggre.get(j);
-				Vec2 aggreBodyPosition = aggreBody.getPosition();
-				Vec2 v = new Vec2(aggreBodyPosition.x - b.getPosition().x,
-						aggreBodyPosition.y - b.getPosition().y);
-				if (v.length() > ((Aggregation) aggreBody.getUserData()).attract_radius)
-					continue;// 人物未进入宣传点的吸引范围
-				if (!Tool.probility(((Aggregation) aggreBody.getUserData()).attract_possible))
-					continue;// 人物进入了宣传点的吸引范围但是未被吸引
-				// 如果在该宣传点之前未被别的商店吸引
-				if (!masterData.isAttract) {
-					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed / v.length()));
-					masterData.isAttract = true;
-					// 将该人物距离目的地的距离记录下来
-					masterData.setaDistanceOfAttract(v.length());
-					masterData.destination = aggreBodyPosition.clone();
-					// for (int index = 0; index < mall.shopList.size();
-					// index++) {
-					// if (mall.shopList.get(index).aggre.equals(a)
-					// && pg.PatLastShop != index + 1) {
-					// pg.PatShop = index + 1;
-					// }
-					// }
-				}
-				// 如果在该宣传点之前已经被别的商店吸引
-				else if (masterData.isAttract) {
-					// 当人物当前位置到新的吸引人物的宣传点的距离大于到老的吸引人物的宣传点距离时则改变人物的目的地
-					if (v.length() > masterData.getaDistanceOfAttract()) {
-						b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed / v.length()));
-						masterData.destination = aggreBodyPosition.clone();
-					}
-				}
-				// 不可能出现这种情况
-				// else {
-				// b.setLinearVelocity(People.randomNormalSpeed());
-				// }
-
-				for (int k = 0; k < pg.others.size(); k++) {
-					Body otherBody = pg.others.get(k); // 组内其他人是否被吸引
-					People otherData = (People) otherBody.getUserData();
-					v = new Vec2(aggreBodyPosition.x - otherBody.getPosition().x,
-							aggreBodyPosition.y - otherBody.getPosition().y);
-					if (v.length() > ((Aggregation) aggreBody.getUserData()).attract_radius)
-						continue;
-					if (!Tool.probility(((Aggregation) aggreBody.getUserData()).attract_possible))
-						continue;
-					if (!otherData.isAttract) {
-						otherBody.setLinearVelocity(
-								v.mul(((People) (otherBody.getUserData())).attract_speed / v.length()));
-						otherData.isAttract = true;
-						// 将该人物距离目的地的距离记录下来
-						otherData.setaDistanceOfAttract(v.length());
-						otherData.destination = aggreBodyPosition.clone();
-						otherData.isAttract = true;
-					} else if (otherData.isAttract) {
-						// 当人物当前位置到新的吸引人物的宣传点的距离大于到老的吸引人物的宣传点距离时则改变人物的目的地
-						if (v.length() > otherData.getaDistanceOfAttract()) {
-							otherBody.setLinearVelocity(
-									v.mul(((People) (otherBody.getUserData())).attract_speed / v.length()));
-							otherData.destination = aggreBodyPosition.clone();
-						}
-					}
-					// 不可能出现这种情况
-					 else {
-					 otherBody.setLinearVelocity(People.randomNormalSpeed());
-					 }
-				}
-			}
-		}
-//		for (int i = 0; i < pgList.size(); i++) {
-//			PeopleGroup pg = pgList.get(i);
-//			Body b = pg.master;// master是否被吸引
-//			People px = (People) b.getUserData();
-//			for (int j = 0; j < aggre.size(); j++) {
-//				Body a = aggre.get(j);
-//				Vec2 p = a.getPosition();
-//				Vec2 v = new Vec2(p.x - b.getPosition().x, p.y
-//						- b.getPosition().y);
-//				if (v.length() > ((Aggregation) a.getUserData()).attract_radius)
-//					continue;// 未到达聚集点
-//				if (!Tool
-//						.probility(((Aggregation) a.getUserData()).attract_possible))
-//					continue;// 未被吸引
-//				if (!px.isAttract) {
-//					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed
-//							/ v.length()));
-//					px.isAttract = true;
-//					px.destination = p.clone();
-////					for (int index = 0; index < mall.shopList.size(); index++) {
-////						if (mall.shopList.get(index).aggre.equals(a)
-////								&& pg.PatLastShop != index + 1) {
-////							pg.PatShop = index + 1;
-////						}
-////					}
+//		for (int j = 0; j < aggre.size(); j++) {
+//			for (int i = 0; i < pgList.size(); i++) {
+//				PeopleGroup pg = pgList.get(i);
+//				Body b = pg.master;// master是否被吸引
+//				People masterData = (People) b.getUserData();
+//				Body aggreBody = aggre.get(j);
+//				Vec2 aggreBodyPosition = aggreBody.getPosition();
+//				Vec2 v = new Vec2(aggreBodyPosition.x - b.getPosition().x,
+//						aggreBodyPosition.y - b.getPosition().y);
+//				if (v.length() > ((Aggregation) aggreBody.getUserData()).attract_radius)
+//					continue;// 人物未进入宣传点的吸引范围
+//				if (!Tool.probility(((Aggregation) aggreBody.getUserData()).attract_possible))
+//					continue;// 人物进入了宣传点的吸引范围但是未被吸引
+//				// 如果在该宣传点之前未被别的商店吸引
+//				if (!masterData.isAttract) {
+//					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed / v.length()));
+//					masterData.isAttract = true;
+//					// 将该人物距离目的地的距离记录下来
+//					masterData.setaDistanceOfAttract(v.length());
+//					masterData.destination = aggreBodyPosition.clone();
+//					// for (int index = 0; index < mall.shopList.size();
+//					// index++) {
+//					// if (mall.shopList.get(index).aggre.equals(a)
+//					// && pg.PatLastShop != index + 1) {
+//					// pg.PatShop = index + 1;
+//					// }
+//					// }
 //				}
-//				else if(px.isAttract){
-//					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed
-//							/ v.length()));
-//					px.destination = p.clone();
+//				// 如果在该宣传点之前已经被别的商店吸引
+//				else if (masterData.isAttract) {
+//					// 当人物当前位置到新的吸引人物的宣传点的距离大于到老的吸引人物的宣传点距离时则改变人物的目的地
+//					if (v.length() < masterData.getaDistanceOfAttract()) {
+//						b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed / v.length()));
+//						masterData.destination = aggreBodyPosition.clone();
+//					}
 //				}
-//				else {
-//				    b.setLinearVelocity(People.randomNormalSpeed());
-//				}
-//			}
-//			for (int j = 0; j < pg.others.size(); j++) {
-//				Body o = pg.others.get(j); // 组内其他人是否被吸引
-//				People other = (People) o.getUserData();
-//				for (int k = 0; k < aggre.size(); k++) {
-//					Body ag = aggre.get(k);
-//					Vec2 p = ag.getPosition();
-//					Vec2 v = new Vec2(p.x - o.getPosition().x, p.y
-//							- o.getPosition().y);
-//					if (v.length() > ((Aggregation) ag.getUserData()).attract_radius)
+//				// 不可能出现这种情况
+//				 else {
+//				 b.setLinearVelocity(People.randomNormalSpeed());
+//				 }
+//
+//				for (int k = 0; k < pg.others.size(); k++) {
+//					Body otherBody = pg.others.get(k); // 组内其他人是否被吸引
+//					People otherData = (People) otherBody.getUserData();
+//					v = new Vec2(aggreBodyPosition.x - otherBody.getPosition().x,
+//							aggreBodyPosition.y - otherBody.getPosition().y);
+//					if (v.length() > ((Aggregation) aggreBody.getUserData()).attract_radius)
 //						continue;
-//					if (!Tool
-//							.probility(((Aggregation) ag.getUserData()).attract_possible))
+//					if (!Tool.probility(((Aggregation) aggreBody.getUserData()).attract_possible))
 //						continue;
-//					if (!other.isAttract) {
-//						o.setLinearVelocity(v.mul(((People) (o.getUserData())).attract_speed
-//								/ v.length()));
-//						other.isAttract = true;
-//						other.destination = p.clone();
-//						other.isAttract = true;
+//					if (!otherData.isAttract) {
+//						otherBody.setLinearVelocity(
+//								v.mul(((People) (otherBody.getUserData())).attract_speed / v.length()));
+//						otherData.isAttract = true;
+//						// 将该人物距离目的地的距离记录下来
+//						otherData.setaDistanceOfAttract(v.length());
+//						otherData.destination = aggreBodyPosition.clone();
+//						otherData.isAttract = true;
+//					} else if (otherData.isAttract) {
+//						// 当人物当前位置到新的吸引人物的宣传点的距离大于到老的吸引人物的宣传点距离时则改变人物的目的地
+//						if (v.length() < otherData.getaDistanceOfAttract()) {
+//							otherBody.setLinearVelocity(
+//									v.mul(((People) (otherBody.getUserData())).attract_speed / v.length()));
+//							otherData.destination = aggreBodyPosition.clone();
+//						}
 //					}
-//					else if(other.isAttract){
-//						o.setLinearVelocity(v.mul(((People) (o.getUserData())).attract_speed
-//								/ v.length()));
-//						other.destination = p.clone();
-//					}
-//					else {
-//					    o.setLinearVelocity(People.randomNormalSpeed());
-//					}
+//					// 不可能出现这种情况
+//					 else {
+//					 otherBody.setLinearVelocity(People.randomNormalSpeed());
+//					 }
 //				}
 //			}
 //		}
+		for (int i = 0; i < pgList.size(); i++) {
+			PeopleGroup pg = pgList.get(i);
+			Body b = pg.master;// master是否被吸引
+			People px = (People) b.getUserData();
+			for (int j = 0; j < aggre.size(); j++) {
+				Body a = aggre.get(j);
+				Vec2 p = a.getPosition();
+				Vec2 v = new Vec2(p.x - b.getPosition().x, p.y
+						- b.getPosition().y);
+				if (v.length() > ((Aggregation) a.getUserData()).attract_radius)
+					continue;// 未到达聚集点
+				if (!Tool
+						.probility(((Aggregation) a.getUserData()).attract_possible))
+					continue;// 未被吸引
+				if (!px.isAttract) {
+					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed
+							/ v.length()));
+					px.isAttract = true;
+					px.destination = p.clone();
+//					for (int index = 0; index < mall.shopList.size(); index++) {
+//						if (mall.shopList.get(index).aggre.equals(a)
+//								&& pg.PatLastShop != index + 1) {
+//							pg.PatShop = index + 1;
+//						}
+//					}
+				}
+				else if(px.isAttract){
+					b.setLinearVelocity(v.mul(((People) (b.getUserData())).attract_speed
+							/ v.length()));
+					px.destination = p.clone();
+				}
+				else {
+				    b.setLinearVelocity(People.randomNormalSpeed());
+				}
+			}
+			for (int j = 0; j < pg.others.size(); j++) {
+				Body o = pg.others.get(j); // 组内其他人是否被吸引
+				People other = (People) o.getUserData();
+				for (int k = 0; k < aggre.size(); k++) {
+					Body ag = aggre.get(k);
+					Vec2 p = ag.getPosition();
+					Vec2 v = new Vec2(p.x - o.getPosition().x, p.y
+							- o.getPosition().y);
+					if (v.length() > ((Aggregation) ag.getUserData()).attract_radius)
+						continue;
+					if (!Tool
+							.probility(((Aggregation) ag.getUserData()).attract_possible))
+						continue;
+					if (!other.isAttract) {
+						o.setLinearVelocity(v.mul(((People) (o.getUserData())).attract_speed
+								/ v.length()));
+						other.isAttract = true;
+						other.destination = p.clone();
+						other.isAttract = true;
+					}
+					else if(other.isAttract){
+						o.setLinearVelocity(v.mul(((People) (o.getUserData())).attract_speed
+								/ v.length()));
+						other.destination = p.clone();
+					}
+					else {
+					    o.setLinearVelocity(People.randomNormalSpeed());
+					}
+				}
+			}
+		}
 		this.TestAgg();
 	}
 
@@ -451,7 +451,7 @@ public class SimulationTest extends TestbedTest {
 								&& p.pAtshop != -1 && p.isAttract&&distant<temp) {
 							temp = distant;
 							if (b.isMaster && (!b1.isMaster)
-									&& b.pgNo == b1.pgNo && Tool.probility(0.8)) {
+									&& b.pgNo == b1.pgNo && Tool.probility(0.9)) {
 								p1.isAttract = true;
 								p1.pAtshop = p.pAtshop;
 								for (int m = 0; m < aggre.size(); m++) {
@@ -465,7 +465,7 @@ public class SimulationTest extends TestbedTest {
 									}
 								}
 							} else if (b.isMaster && b1.isMaster&&b.pgNo!=b1.pgNo
-									&& Tool.probility(0.6)) {
+									&& Tool.probility(0.8)) {
 								p1.isAttract = true;
 								p1.pAtshop = p.pAtshop;
 								for (int m = 0; m < aggre.size(); m++) {
@@ -479,7 +479,7 @@ public class SimulationTest extends TestbedTest {
 									}
 								}
 							} else if (!b.isMaster && b.pgNo == b1.pgNo&&b1.isMaster
-									&& Tool.probility(0.5)) {
+									&& Tool.probility(0.7)) {
 								p1.isAttract = true;
 								p1.pAtshop = p.pAtshop;
 								for (int m = 0; m < aggre.size(); m++) {
@@ -493,7 +493,7 @@ public class SimulationTest extends TestbedTest {
 									}
 								}
 							} else if (!b.isMaster && b.pgNo != b1.pgNo&&!b1.isMaster
-									&& Tool.probility(0.4)) {
+									&& Tool.probility(0.6)) {
 								p1.isAttract = true;
 								p1.pAtshop = p.pAtshop;
 								for (int m = 0; m < aggre.size(); m++) {
